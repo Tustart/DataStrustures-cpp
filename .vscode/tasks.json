@@ -1,0 +1,37 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "自动编译C/C++",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "if [[ \"${fileExtname}\" == \".c\" ]]; then gcc -fdiagnostics-color=always -g \"${file}\" -o \"${fileDirname}/${fileBasenameNoExtension}\"; else g++ -fdiagnostics-color=always -g \"${file}\" -o \"${fileDirname}/${fileBasenameNoExtension}\"; fi"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "一键编译运行",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": ["自动编译C/C++"],
+            "command": "./${fileBasenameNoExtension}",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
